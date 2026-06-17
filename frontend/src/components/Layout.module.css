@@ -1,5 +1,6 @@
 .shell {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -7,8 +8,9 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  padding: 1rem 2rem;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  padding-top: calc(0.75rem + var(--safe-top));
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   position: sticky;
@@ -23,33 +25,33 @@
 }
 
 .logoText {
-  font-size: 1.5rem;
-  font-weight: 800;
+  font-size: 1.4rem;
+  font-weight: 900;
   color: var(--accent-glow);
   letter-spacing: -0.03em;
 }
 
 .logoTag {
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
 
-.nav {
+.desktopNav {
   display: flex;
   gap: 0.25rem;
   flex: 1;
 }
 
-.link,
-.activeLink {
+.link, .activeLink {
   padding: 0.4rem 0.9rem;
   border-radius: 6px;
   font-size: 0.875rem;
   transition: background 0.15s, color 0.15s;
   color: var(--text-muted);
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .link:hover {
@@ -68,16 +70,21 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-left: auto;
 }
 
 .teamBadge {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--accent-glow);
   background: color-mix(in srgb, var(--accent) 15%, transparent);
-  padding: 0.25rem 0.75rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 9999px;
   border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .logoutBtn {
@@ -85,9 +92,11 @@
   background: none;
   border: 1px solid var(--border);
   color: var(--text-muted);
-  padding: 0.25rem 0.75rem;
+  padding: 0.35rem 0.75rem;
   border-radius: 6px;
   transition: all 0.15s;
+  white-space: nowrap;
+  min-height: 36px;
 }
 
 .logoutBtn:hover {
@@ -97,8 +106,73 @@
 
 .main {
   flex: 1;
-  padding: 2rem;
+  padding: 1.5rem;
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
+  padding-bottom: calc(1.5rem + 64px); /* space for mobile nav */
+}
+
+/* Mobile bottom nav */
+.mobileNav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding-bottom: var(--safe-bottom);
+  z-index: 200;
+}
+
+.mobileNavItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  padding: 0.6rem 0.5rem;
+  flex: 1;
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: color 0.15s;
+  min-height: 56px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mobileNavActive {
+  color: var(--accent-glow);
+}
+
+.mobileNavIcon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.mobileNavLabel {
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 767px) {
+  .desktopNav {
+    display: none;
+  }
+
+  .mobileNav {
+    display: flex;
+  }
+
+  .header {
+    padding: 0.6rem 1rem;
+    padding-top: calc(0.6rem + var(--safe-top));
+  }
+
+  .main {
+    padding: 1rem;
+    padding-bottom: calc(1rem + 70px);
+  }
 }

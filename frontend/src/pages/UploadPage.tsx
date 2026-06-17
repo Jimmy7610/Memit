@@ -57,9 +57,14 @@ export default function UploadPage() {
     if (file) handleFile(file);
   };
 
+  const handleDropzoneTap = () => {
+    if (!preview) {
+      fileInputRef.current?.click();
+    }
+  };
+
   const handleUpload = async () => {
     if (!selectedFile || !session?.teamId || !session?.projectId) return;
-
     setState("uploading");
     setError("");
 
@@ -69,19 +74,13 @@ export default function UploadPage() {
     formData.append("project_id", session.projectId);
 
     try {
-      const res = await fetch("/api/meme", {
-        method: "POST",
-        body: formData,
-      });
-      const data = (await res.json()) as UploadResult & { error?: string };
-      if (!res.ok) {
-        throw new Error(data.error ?? "Upload failed");
-      }
+      const res = await fetch("/api/meme", { method: "POST", body: formData });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Upload failed");
       setResult(data);
       setState("success");
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Upload failed";
-      setError(message);
+      setError(err instanceof Error ? err.message : "Upload failed");
       setState("error");
     }
   };
@@ -106,70 +105,63 @@ export default function UploadPage() {
       <div className={styles.header}>
         <h1 className={styles.title}>Submit a Meme</h1>
         <p className={styles.subtitle}>
-          Drop your meme. Claude will interpret it and decide what to build
-          next. <strong>No text. Only memes.</strong>
+          Tap to choose a meme from your camera roll or take a new photo.
+          <strong> No text. Only memes.</strong>
         </p>
       </div>
 
       {state !== "success" && (
-        <div
-          className={`${styles.dropzone} ${dragOver ? styles.dragOver : ""} ${preview ? styles.hasFile : ""}`}
-          onDrop={handleDrop}
-          onDragOver={(e) => {
-            e.preventDefault();
-            setDragOver(true);
-          }}
-          onDragLeave={() => setDragOver(false)}
-          onClick={() => !preview && fileInputRef.current?.click()}
-        >
+        <>
+          {/* The file input must be outside the dropzone div and triggered by user gesture */}
           <input
             ref={fileInputRef}
             type="file"
             accept="image/*"
             onChange={handleFileInput}
             className={styles.hiddenInput}
+            tabIndex={-1}
           />
 
-          {!preview && (
-            <div className={styles.placeholder}>
-              <div className={styles.placeholderIcon}>🖼️</div>
-              <p className={styles.placeholderText}>
-                Drag &amp; drop your meme here
-              </p>
-              <p className={styles.placeholderSub}>or click to browse</p>
-              <p className={styles.placeholderNote}>
-                PNG, JPG, GIF, WebP — max 10MB
-              </p>
-            </div>
-          )}
-
-          {preview && (
-            <img
-              src={preview}
-              alt="Selected meme"
-              className={styles.previewImage}
-            />
-          )}
-        </div>
+          <div
+            className={`${styles.dropzone} ${dragOver ? styles.dragOver : ""} ${preview ? styles.hasFile : ""}`}
+            onDrop={handleDrop}
+            onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+            onDragLeave={() => setDragOver(false)}
+            onClick={handleDropzoneTap}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") handleDropzoneTap(); }}
+            aria-label="Tap to select a meme image"
+          >
+            {!preview && (
+              <div className={styles.placeholder}>
+                <div className={styles.placeholderIcon}>🖼️</div>
+                <p className={styles.placeholderText}>Tap to choose meme</p>
+                <p className={styles.placeholderSub}>Camera roll · Take photo · Files</p>
+                <p className={styles.placeholderNote}>PNG · JPG · GIF · WebP · max 10MB</p>
+              </div>
+            )}
+            {preview && (
+              <img src={preview} alt="Selected meme" className={styles.previewImage} />
+            )}
+          </div>
+        </>
       )}
 
       {error && <div className={styles.errorBox}>{error}</div>}
 
       {preview && state !== "success" && (
         <div className={styles.actions}>
-          <button onClick={handleReset} className={styles.resetBtn}>
-            Choose different meme
+          <button onClick={handleReset} className={styles.resetBtn} type="button">
+            Change
           </button>
           <button
             onClick={handleUpload}
             className={styles.submitBtn}
             disabled={state === "uploading"}
+            type="button"
           >
-            {state === "uploading" ? (
-              <span className={styles.loading}>Interpreting meme</span>
-            ) : (
-              "Submit Meme →"
-            )}
+            {state === "uploading" ? "Interpreting…" : "Submit Meme →"}
           </button>
         </div>
       )}
@@ -177,16 +169,11 @@ export default function UploadPage() {
       {state === "success" && result && (
         <div className={styles.resultCard}>
           <div className={styles.resultHeader}>
-            <span className={styles.checkmark}>✓</span>
-            <div>
-              <div className={styles.resultTitle}>
-                Meme submitted &amp; interpreted
-              </div>
+            <div className={styles.checkmark}>✓</div>
+            <div className={styles.resultInfo}>
+              <div className={styles.resultTitle}>Meme submitted</div>
               <div className={styles.resultMeta}>
-                #{result.sequence_number} · SHA-256:{" "}
-                <code className={styles.hash}>
-                  {result.sha256_hash.slice(0, 16)}...
-                </code>
+                #{result.sequence_number} · <code className={styles.hash}>{result.sha256_hash.slice(0, 12)}…</code>
               </div>
             </div>
             <img
@@ -202,40 +189,27 @@ export default function UploadPage() {
                 {result.interpretation.meme_identified_as}
                 <span
                   className={styles.confidence}
-                  style={{
-                    color: confidenceColor(
-                      result.interpretation.confidence_level
-                    ),
-                  }}
+                  style={{ color: confidenceColor(result.interpretation.confidence_level) }}
                 >
-                  {result.interpretation.confidence_level} confidence
+                  {result.interpretation.confidence_level}
                 </span>
               </div>
-              <p className={styles.interpretText}>
-                {result.interpretation.interpretation}
-              </p>
+              <p className={styles.interpretText}>{result.interpretation.interpretation}</p>
               <div className={styles.actionBox}>
                 <span className={styles.actionLabel}>→ Proposed action</span>
-                <p className={styles.actionText}>
-                  {result.interpretation.proposed_action}
-                </p>
+                <p className={styles.actionText}>{result.interpretation.proposed_action}</p>
               </div>
             </div>
           ) : (
-            <div className={styles.noInterpret}>
-              Interpretation pending — admin will review.
-            </div>
+            <div className={styles.noInterpret}>Interpretation pending — admin will review.</div>
           )}
 
           <div className={styles.resultActions}>
-            <button onClick={handleReset} className={styles.submitBtn}>
+            <button onClick={handleReset} className={styles.submitBtn} type="button">
               Submit another meme
             </button>
-            <button
-              onClick={() => navigate("/dashboard")}
-              className={styles.resetBtn}
-            >
-              Back to dashboard
+            <button onClick={() => navigate("/dashboard")} className={styles.resetBtn} type="button">
+              Dashboard
             </button>
           </div>
         </div>

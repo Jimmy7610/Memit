@@ -24,8 +24,7 @@ export default function LoginPage() {
         navigate("/admin");
       }
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Login failed";
-      setError(message);
+      setError(err instanceof Error ? err.message : "Login failed");
     } finally {
       setLoading(false);
     }
@@ -40,22 +39,16 @@ export default function LoginPage() {
 
         <div className={styles.tabs}>
           <button
+            type="button"
             className={mode === "team" ? styles.tabActive : styles.tab}
-            onClick={() => {
-              setMode("team");
-              setCode("");
-              setError("");
-            }}
+            onClick={() => { setMode("team"); setCode(""); setError(""); }}
           >
             Team Login
           </button>
           <button
+            type="button"
             className={mode === "admin" ? styles.tabActive : styles.tab}
-            onClick={() => {
-              setMode("admin");
-              setCode("");
-              setError("");
-            }}
+            onClick={() => { setMode("admin"); setCode(""); setError(""); }}
           >
             Admin
           </button>
@@ -72,15 +65,14 @@ export default function LoginPage() {
             placeholder={mode === "team" ? "e.g. ALPHA42" : "••••••••"}
             className={styles.input}
             autoComplete="off"
+            autoCapitalize="characters"
+            autoCorrect="off"
+            spellCheck={false}
             autoFocus
           />
           {error && <div className={styles.error}>{error}</div>}
-          <button
-            type="submit"
-            className={styles.button}
-            disabled={loading || !code.trim()}
-          >
-            {loading ? "Logging in..." : "Enter"}
+          <button type="submit" className={styles.button} disabled={loading || !code.trim()}>
+            {loading ? "Logging in…" : "Enter"}
           </button>
         </form>
       </div>
