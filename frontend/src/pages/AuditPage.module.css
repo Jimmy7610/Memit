@@ -1,0 +1,214 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.loading {
+  color: var(--text-muted);
+  padding: 2rem;
+}
+
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+.subtitle {
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.exportBtn {
+  padding: 0.6rem 1.2rem;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  transition: all 0.15s;
+}
+
+.exportBtn:hover {
+  border-color: var(--accent);
+  color: var(--accent-glow);
+}
+
+.verifyBanner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid;
+}
+
+.valid {
+  background: color-mix(in srgb, var(--success) 8%, transparent);
+  border-color: color-mix(in srgb, var(--success) 30%, transparent);
+}
+
+.invalid {
+  background: color-mix(in srgb, var(--error) 8%, transparent);
+  border-color: color-mix(in srgb, var(--error) 30%, transparent);
+}
+
+.verifyIcon {
+  font-size: 1.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.valid .verifyIcon {
+  background: var(--success);
+  color: white;
+}
+
+.invalid .verifyIcon {
+  background: var(--error);
+  color: white;
+}
+
+.verifyTitle {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.verifyMeta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.log {
+  display: flex;
+  flex-direction: column;
+}
+
+.entry {
+  display: flex;
+  gap: 0;
+}
+
+.entryLeft {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 3rem;
+  flex-shrink: 0;
+}
+
+.seq {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.connector {
+  flex: 1;
+  width: 1px;
+  background: var(--border);
+  min-height: 1rem;
+}
+
+.entry:last-child .connector {
+  display: none;
+}
+
+.entryCard {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.entryHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.eventType {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+}
+
+.memesubmitted {
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--accent-glow);
+}
+.interpreted {
+  background: color-mix(in srgb, var(--success) 15%, transparent);
+  color: var(--success);
+}
+.actiontaken {
+  background: color-mix(in srgb, var(--warning) 15%, transparent);
+  color: var(--warning);
+}
+.rejected {
+  background: color-mix(in srgb, var(--error) 15%, transparent);
+  color: var(--error);
+}
+
+.entryTime {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.hashes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.hashRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.72rem;
+}
+
+.hashLabel {
+  color: var(--text-muted);
+  width: 3.5rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.hashVal {
+  font-family: monospace;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.chainHash {
+  color: var(--accent-glow);
+}
+
+.empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 3rem;
+}

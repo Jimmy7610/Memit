@@ -1,0 +1,121 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.loading {
+  color: var(--text-muted);
+  padding: 2rem;
+}
+.title {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+.subtitle {
+  color: var(--text-muted);
+}
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.entry {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.seqNum {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-glow);
+  width: 2rem;
+  padding-top: 1.25rem;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.card {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cardHeader {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--surface2);
+  flex-shrink: 0;
+}
+
+.meta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.memeName {
+  font-weight: 600;
+  color: var(--accent-glow);
+  font-size: 1rem;
+}
+
+.timestamp {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.hash {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-family: monospace;
+}
+
+.details {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.interpretation {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.action {
+  font-size: 0.9rem;
+  color: var(--text);
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.actionLabel {
+  color: var(--accent-glow);
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+
+.empty {
+  color: var(--text-muted);
+  padding: 2rem;
+  text-align: center;
+}
