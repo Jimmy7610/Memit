@@ -1,36 +1,27 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.loading {
-  color: var(--text-muted);
-  padding: 2rem;
-}
+.page { display: flex; flex-direction: column; gap: 1.25rem; }
+.loading { color: var(--text-muted); padding: 2rem; }
 
 .pageHeader {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.title {
-  font-size: 1.75rem;
-  font-weight: 800;
-}
-.subtitle {
-  color: var(--text-muted);
-  margin-top: 0.25rem;
-}
+.title { font-size: 1.5rem; font-weight: 800; }
+.subtitle { color: var(--text-muted); margin-top: 0.2rem; font-size: 0.85rem; }
 
 .exportBtn {
-  padding: 0.6rem 1.2rem;
+  padding: 0.55rem 1rem;
   background: none;
   border: 1px solid var(--border);
   color: var(--text-muted);
   border-radius: 8px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   transition: all 0.15s;
+  white-space: nowrap;
+  min-height: 44px;
 }
 
 .exportBtn:hover {
@@ -41,8 +32,8 @@
 .verifyBanner {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
   border-radius: 12px;
   border: 1px solid;
 }
@@ -58,58 +49,37 @@
 }
 
 .verifyIcon {
-  font-size: 1.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.2rem;
+  height: 2.2rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
   flex-shrink: 0;
+  font-size: 1.1rem;
 }
 
-.valid .verifyIcon {
-  background: var(--success);
-  color: white;
-}
+.valid .verifyIcon { background: var(--success); color: white; }
+.invalid .verifyIcon { background: var(--error); color: white; }
 
-.invalid .verifyIcon {
-  background: var(--error);
-  color: white;
-}
+.verifyTitle { font-weight: 600; color: var(--text); font-size: 0.9rem; }
+.verifyMeta { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; }
 
-.verifyTitle {
-  font-weight: 600;
-  color: var(--text);
-}
+.log { display: flex; flex-direction: column; }
 
-.verifyMeta {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 0.2rem;
-}
-
-.log {
-  display: flex;
-  flex-direction: column;
-}
-
-.entry {
-  display: flex;
-  gap: 0;
-}
+.entry { display: flex; gap: 0; }
 
 .entryLeft {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 3rem;
+  width: 2.5rem;
   flex-shrink: 0;
 }
 
 .seq {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   font-weight: 700;
   color: var(--accent-glow);
   height: 1.5rem;
@@ -121,94 +91,76 @@
   flex: 1;
   width: 1px;
   background: var(--border);
-  min-height: 1rem;
+  min-height: 0.75rem;
 }
 
-.entry:last-child .connector {
-  display: none;
-}
+.entry:last-child .connector { display: none; }
 
 .entryCard {
   flex: 1;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
-  padding: 1rem;
-  margin-bottom: 0.75rem;
+  padding: 0.85rem;
+  margin-bottom: 0.65rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.6rem;
+  min-width: 0;
 }
 
 .entryHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .eventType {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 4px;
 }
 
-.memesubmitted {
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
-  color: var(--accent-glow);
-}
-.interpreted {
-  background: color-mix(in srgb, var(--success) 15%, transparent);
-  color: var(--success);
-}
-.actiontaken {
-  background: color-mix(in srgb, var(--warning) 15%, transparent);
-  color: var(--warning);
-}
-.rejected {
-  background: color-mix(in srgb, var(--error) 15%, transparent);
-  color: var(--error);
-}
+.memesubmitted { background: color-mix(in srgb, var(--accent) 20%, transparent); color: var(--accent-glow); }
+.interpreted { background: color-mix(in srgb, var(--success) 15%, transparent); color: var(--success); }
+.actiontaken { background: color-mix(in srgb, var(--warning) 15%, transparent); color: var(--warning); }
+.rejected { background: color-mix(in srgb, var(--error) 15%, transparent); color: var(--error); }
 
-.entryTime {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
+.entryTime { font-size: 0.7rem; color: var(--text-muted); }
 
-.hashes {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
+.hashes { display: flex; flex-direction: column; gap: 0.3rem; }
 
 .hashRow {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.72rem;
+  gap: 0.5rem;
+  font-size: 0.68rem;
+  min-width: 0;
 }
 
 .hashLabel {
   color: var(--text-muted);
-  width: 3.5rem;
+  width: 3rem;
   text-align: right;
   flex-shrink: 0;
+  font-size: 0.65rem;
 }
 
 .hashVal {
   font-family: monospace;
   color: var(--text-muted);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
-.chainHash {
-  color: var(--accent-glow);
-}
+.chainHash { color: var(--accent-glow); }
 
-.empty {
-  color: var(--text-muted);
-  text-align: center;
-  padding: 3rem;
-}
+.empty { color: var(--text-muted); text-align: center; padding: 3rem 1rem; font-size: 0.9rem; }
