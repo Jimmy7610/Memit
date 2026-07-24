@@ -1,0 +1,12 @@
+{
+  "name": "voxelcraft",
+  "version": "1.0.0",
+  "description": "A fully playable Minecraft-like voxel game in the browser (Three.js).",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["minecraft", "voxel", "game", "threejs", "webgl"],
+  "license": "MIT"
+}
